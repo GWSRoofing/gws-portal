@@ -19,17 +19,17 @@ AUTH_TOKEN_SECRET = os.environ.get("AUTH_TOKEN_SECRET", "gws-secret-key-change-m
 
 APPS = [
     {
-        "title": "✉️ Cover Letter",
+        "title": "✉️  Cover Letter",
         "description": "Generate professional cover letters from dictated job details",
         "url": "https://coverletter-production.up.railway.app/",
     },
     {
-        "title": "📋 Quote Generator",
+        "title": "📋  Quote",
         "description": "Create accurate roofing quotes from voice or typed input",
         "url": "https://quote-production-a674.up.railway.app/",
     },
     {
-        "title": "🔧 Live Job Sheet",
+        "title": "🔧  Live Job Sheet",
         "description": "Produce live job sheets ready for site and client sign-off",
         "url": "https://livejobsheet-production.up.railway.app/",
     },
@@ -51,6 +51,16 @@ def get_logo_b64():
             return base64.b64encode(f.read()).decode()
     return None
 
+def show_logo():
+    logo_b64 = get_logo_b64()
+    if logo_b64:
+        st.markdown(
+            f'<div style="text-align:center;margin-bottom:4px;padding-top:20px;">'
+            f'<img src="data:image/jpeg;base64,{logo_b64}" style="height:90px;width:auto;" />'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
 # ── CSS ───────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -70,7 +80,7 @@ html, body, .stApp {
 }
 
 .block-container {
-    padding-top: 60px !important;
+    padding-top: 20px !important;
     padding-bottom: 60px !important;
     max-width: 700px !important;
 }
@@ -87,19 +97,26 @@ p, label {
     text-align: center;
 }
 
+/* Password input — dark background, white text, visible when revealed */
 .stTextInput > div > div > input {
-    background: rgba(255,255,255,0.06) !important;
+    background: #1e2f45 !important;
     border: 1px solid rgba(255,255,255,0.2) !important;
     border-radius: 10px !important;
     color: #ffffff !important;
     font-family: 'Barlow', sans-serif !important;
     font-size: 15px !important;
     padding: 12px 16px !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
 .stTextInput > div > div > input:focus {
     border-color: #c8f03c !important;
     box-shadow: 0 0 0 2px rgba(200,240,60,0.2) !important;
+}
+
+/* Eye icon colour */
+.stTextInput > div > div > button {
+    color: rgba(255,255,255,0.6) !important;
 }
 
 .stButton > button {
@@ -120,19 +137,11 @@ p, label {
 </style>
 """, unsafe_allow_html=True)
 
-# ── Logo ──────────────────────────────────────────────────────────────────────
-logo_b64 = get_logo_b64()
-if logo_b64:
-    st.markdown(
-        f'<div style="text-align:center;margin-bottom:8px;">'
-        f'<img src="data:image/jpeg;base64,{logo_b64}" style="height:80px;width:auto;" />'
-        f'</div>',
-        unsafe_allow_html=True
-    )
-
+# ── Shared header (logo + portal tag) ─────────────────────────────────────────
+show_logo()
 st.markdown(
     '<p style="color:#c8f03c !important;font-size:12px;letter-spacing:3px;'
-    'text-transform:uppercase;text-align:center;margin-bottom:32px;">GWS Portal</p>',
+    'text-transform:uppercase;text-align:center;margin-bottom:24px;">GWS Portal</p>',
     unsafe_allow_html=True
 )
 
@@ -163,7 +172,6 @@ if not check_auth():
 token = st.session_state.get("auth_token", "")
 
 st.markdown("### Select an application")
-st.markdown("Choose a tool below to get started")
 st.markdown("<br>", unsafe_allow_html=True)
 
 for app in APPS:
