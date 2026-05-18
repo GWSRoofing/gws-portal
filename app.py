@@ -114,9 +114,13 @@ p, label {
     box-shadow: 0 0 0 2px rgba(200,240,60,0.2) !important;
 }
 
-/* Eye icon colour */
+/* Eye icon — navy */
 .stTextInput > div > div > button {
-    color: rgba(255,255,255,0.6) !important;
+    color: #0e1a2b !important;
+}
+.stTextInput > div > div > button svg {
+    fill: #0e1a2b !important;
+    stroke: #0e1a2b !important;
 }
 
 .stButton > button {
@@ -128,7 +132,10 @@ p, label {
     font-weight: 700 !important;
     font-size: 15px !important;
     padding: 12px 32px !important;
-    width: 100% !important;
+    width: auto !important;
+    min-width: 200px !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 .stButton > button:hover {
@@ -140,8 +147,8 @@ p, label {
 # ── Shared header (logo + portal tag) ─────────────────────────────────────────
 show_logo()
 st.markdown(
-    '<p style="color:#c8f03c !important;font-size:12px;letter-spacing:3px;'
-    'text-transform:uppercase;text-align:center;margin-bottom:24px;">GWS Portal</p>',
+    '<h3 style="color:#c8f03c !important;letter-spacing:2px;'
+    'text-align:center;margin-bottom:24px;text-transform:none;">Portal</h3>',
     unsafe_allow_html=True
 )
 
