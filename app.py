@@ -45,7 +45,7 @@ def check_auth() -> bool:
 
 # ── Logo ──────────────────────────────────────────────────────────────────────
 def get_logo_b64():
-    logo_path = Path(__file__).parent / "GWS_Roofing_Logo.jpg"
+    logo_path = Path(__file__).parent / "GWS_Roofing_Logo_Reversed.png"
     if logo_path.exists():
         with open(logo_path, "rb") as f:
             return base64.b64encode(f.read()).decode()
@@ -56,7 +56,7 @@ def show_logo():
     if logo_b64:
         st.markdown(
             f'<div style="text-align:center;margin-bottom:4px;padding-top:20px;">'
-            f'<img src="data:image/jpeg;base64,{logo_b64}" style="height:90px;width:auto;" />'
+            f'<img src="data:image/png;base64,{logo_b64}" style="height:90px;width:auto;" />'
             f'</div>',
             unsafe_allow_html=True
         )
