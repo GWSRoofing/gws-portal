@@ -89,15 +89,19 @@ h1, h2, h3 {
     color: #ffffff !important;
     font-family: 'Barlow', sans-serif !important;
     text-align: center;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
 }
 
 p, label {
     color: rgba(255,255,255,0.6) !important;
     font-family: 'Barlow', sans-serif !important;
     text-align: center;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
 }
 
-/* Password input — dark background, white text, visible when revealed */
+/* Input — visible text by default, dark background */
 .stTextInput > div > div > input {
     background: #1e2f45 !important;
     border: 1px solid rgba(255,255,255,0.2) !important;
@@ -123,19 +127,18 @@ p, label {
     stroke: #0e1a2b !important;
 }
 
+/* Button — full width, navy text */
 .stButton > button {
     background: #c8f03c !important;
     color: #0e1a2b !important;
     border: none !important;
     border-radius: 10px !important;
     font-family: 'Barlow', sans-serif !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     font-size: 15px !important;
     padding: 12px 32px !important;
-    width: auto !important;
-    min-width: 200px !important;
-    display: block !important;
-    margin: 0 auto !important;
+    width: 100% !important;
+    margin-top: 8px !important;
 }
 
 .stButton > button:hover {
@@ -144,23 +147,20 @@ p, label {
 </style>
 """, unsafe_allow_html=True)
 
-# ── Shared header (logo + portal tag) ─────────────────────────────────────────
+# ── Shared header (logo only) ──────────────────────────────────────────────────
 show_logo()
-st.markdown(
-    '<h3 style="color:#c8f03c !important;letter-spacing:2px;'
-    'text-align:center;margin-bottom:24px;text-transform:none;">Portal</h3>',
-    unsafe_allow_html=True
-)
+st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
 
 # ── Login screen ───────────────────────────────────────────────────────────────
 if not check_auth():
     st.markdown("### Welcome back")
     st.markdown("Enter your access code to continue")
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom:12px;'></div>", unsafe_allow_html=True)
 
+    # Default to text type so code is visible; user can toggle to hide
     password = st.text_input(
         "Access code",
-        type="password",
+        type="default",
         placeholder="Enter access code",
         label_visibility="collapsed"
     )
@@ -179,7 +179,7 @@ if not check_auth():
 token = st.session_state.get("auth_token", "")
 
 st.markdown("### Select an application")
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
 
 for app in APPS:
     url_with_token = f"{app['url']}?auth_token={token}"
